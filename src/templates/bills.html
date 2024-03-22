@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #f7f7f7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto p-4">
+        <div class="bg-white shadow-md rounded my-6">
+            <table class="min-w-full table-auto">
+                <thead class="justify-between">
+                    <tr class="bg-purple-600">
+                        <th class="px-16 py-2">
+                            <span class="text-gray-300">ID</span>
+                        </th>
+                        <th class="px-16 py-2">
+                            <span class="text-gray-300">Bill</span>
+                        </th>
+                        <th class="px-16 py-2">
+                            <span class="text-gray-300">Supporters</span>
+                        </th>
+                        <th class="px-16 py-2">
+                            <span class="text-gray-300">Opposers</span>
+                        </th>
+                        <th class="px-16 py-2">
+                            <span class="text-gray-300">Primary Sponsor</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-gray-200">
+                    {% for row in bills %}
+                    <tr class="bg-white border-4 border-gray-200">
+                        <td class="px-16 py-2 flex flex-row items-center">{{ row.id }}</td>
+                        <td>{{ row.title }}</td>
+                        <td>{{ row.supporters }}</td>
+                        <td>{{ row.opposers }}</td>
+                        <td>{{ row.primary_sponsor }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-8">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        var chartData = JSON.parse('{{ chartData | safe }}');
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: chartData.labels,
+                datasets: [{
+                    label: '# of Votes',
+                    data: chartData.data,
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
