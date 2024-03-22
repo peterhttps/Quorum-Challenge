@@ -11,7 +11,7 @@ Whether you prefer a Dockerized environment or a more traditional Python setup, 
 1. **Clone and set up a virtual environment:**
 ```bash
 $ git clone https://github.com/peterhttps/Quorum-Challenge
-$ cd https://github.com/peterhttps/Quorum-Challenge
+$ cd Quorum-Challenge
 $ python -m venv .venv
 $ .\.venv\Scripts\activate # On Windows
 $ source .venv/bin/activate # On Linux/Mac
